@@ -1,22 +1,22 @@
 class Mutations::ItemMutation < Mutations::BaseMutation
   argument :id, Integer, required: true
-  argument :first_name, String, required: false
+  argument :name, String, required: true
 
   field :id, ID, null: false
-  field :first_name, String, null: false
+  field :name, String, null: false
 
-  def resolve(id:, first_name: nil)
-    user = User.find(id)
+  def resolve(id:, name:)
+    item = Item.find(id)
 
-    unless user
+    unless item
       return {}
     end
 
-    user.update!(first_name: first_name)
+    item.update!(name: name)
 
     {
-      id: user.id,
-      first_name: user.first_name 
+      id: item.id,
+      name: item.name 
     }
   end
 end

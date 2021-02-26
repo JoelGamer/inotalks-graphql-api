@@ -7,11 +7,6 @@ class Mutations::ItemMutation < Mutations::BaseMutation
 
   def resolve(id:, name:)
     item = Item.find(id)
-
-    unless item
-      return {}
-    end
-
     item.update!(name: name)
 
     {
